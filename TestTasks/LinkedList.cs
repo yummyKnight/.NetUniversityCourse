@@ -1,26 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace LinkedListTask {
-    internal class Program {
-        public static void Main(string[] args) {
-            LinkedList list = new LinkedList();
-            list.InsertLast(5);
-            list.InsertLast(7);
-            list.InsertLast(9);
-            list.PrintContent();
-            list.InsertInPlace(0, 8);
-            list.InsertInPlace(1, 8);
-            list.PrintContent();
-            list.DeleteInPlace(1);
-            list.DeleteInPlace(1);
-            list.PrintContent();
-            list.DeleteLast();
-            list.PrintContent();
-        }
-    }
-
-    internal class ListException : Exception {
+namespace Tasks {
+        internal class ListException : Exception {
         public ListException() {
         }
 
@@ -33,11 +15,10 @@ namespace LinkedListTask {
         protected ListException(SerializationInfo info, StreamingContext context) : base(info, context) {
         }
     }
-
-
-    internal class LinkedList {
+    
+    public class LinkedList {
         private uint _len = 0;
-        private Node _head = null;
+        private LinkedListNode _head = null;
 
         public LinkedList() {
         }
@@ -45,11 +26,11 @@ namespace LinkedListTask {
         public void InsertLast(int info) {
             if (_len == 0)
             {
-                _head = new Node(info);
+                _head = new LinkedListNode(info);
             }
             else
             {
-                _head.InsertNode(_len -1, new Node(info));
+                _head.InsertNode(_len -1, new LinkedListNode(info));
             }
 
             _len++;
@@ -61,7 +42,7 @@ namespace LinkedListTask {
                 throw new ListException(
                     $"Cant insert node. Number of node to insert is too big. Current size of list = {_len}");
             }
-            _head.InsertNode(place, new Node(info));
+            _head.InsertNode(place, new LinkedListNode(info));
             _len++;
         }
 
@@ -98,27 +79,27 @@ namespace LinkedListTask {
         }
     }
 
-    internal class Node {
-        private Node _nextNode;
-        private Node _prevNode;
+    internal class LinkedListNode {
+        private LinkedListNode _nextLinkedListNode;
+        private LinkedListNode _prevLinkedListNode;
         public int Information { get; }
 
-        public Node(int information) {
+        public LinkedListNode(int information) {
             Information = information;
-            _nextNode = null;
-            _prevNode = null;
+            _nextLinkedListNode = null;
+            _prevLinkedListNode = null;
         }
 
-        private void AddNode(Node nextNode) {
-            _nextNode = nextNode;
-            nextNode._prevNode = this;
+        private void AddNode(LinkedListNode nextLinkedListNode) {
+            _nextLinkedListNode = nextLinkedListNode;
+            nextLinkedListNode._prevLinkedListNode = this;
         }
 
-        public Node Next() {
-            return _nextNode;
+        public LinkedListNode Next() {
+            return _nextLinkedListNode;
         }
 
-        public void InsertNode(uint numberOfNode, Node nodeToInsert) {
+        public void InsertNode(uint numberOfNode, LinkedListNode linkedListNodeToInsert) {
             var i = 0;
             var node = this;
             while (node != null && i < numberOfNode)
@@ -126,10 +107,10 @@ namespace LinkedListTask {
                 node = node.Next();
                 i++;
             }
-            var nextToInsertedNode = node._nextNode;
-            node.AddNode(nodeToInsert);
+            var nextToInsertedNode = node._nextLinkedListNode;
+            node.AddNode(linkedListNodeToInsert);
             if (nextToInsertedNode != null)
-                nodeToInsert.AddNode(nextToInsertedNode);
+                linkedListNodeToInsert.AddNode(nextToInsertedNode);
         }
 
 
@@ -153,25 +134,25 @@ namespace LinkedListTask {
                     $"Cant insert node. Number of node to insert is too big. Current size of list = {i}");
             }
 
-            var nextToDeletedNode = node._nextNode;
-            var prevToDeletedNode = node._prevNode;
+            var nextToDeletedNode = node._nextLinkedListNode;
+            var prevToDeletedNode = node._prevLinkedListNode;
             if (nextToDeletedNode != null)
             {
                 prevToDeletedNode.AddNode(nextToDeletedNode);
             }
             else
             {
-                prevToDeletedNode._nextNode = null;
+                prevToDeletedNode._nextLinkedListNode = null;
             }
 
-            node._nextNode = null;
-            node._prevNode = null;
+            node._nextLinkedListNode = null;
+            node._prevLinkedListNode = null;
         }
 
-        public Node DeleteNode() {
+        public LinkedListNode DeleteNode() {
             var toReturn = Next();
-            _nextNode = null;
-            _prevNode = null;
+            _nextLinkedListNode = null;
+            _prevLinkedListNode = null;
             return toReturn;
         }
     }

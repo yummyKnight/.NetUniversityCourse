@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedListTask", "LinkedListTask\LinkedListTask.csproj", "{DCD3C7D3-B602-402D-9DC9-4F694F5536BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTasks", "TestTasks\TestTasks.csproj", "{DCD3C7D3-B602-402D-9DC9-4F694F5536BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
