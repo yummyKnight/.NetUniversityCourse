@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Tasks {
     internal class Program {
         public static void Main(string[] args) {
-            TestBinaryTree();
+            TestInsertionSort();
         }
 
         public static void TestList() {
@@ -47,7 +47,30 @@ namespace Tasks {
             tree.Delete(4);
             tree.PrintTree();
         }
+
+        public static void TestInsertionSort() {
+            var rand = new Random();
+            var arr = new int[40];
+            for (var i = 0; i < arr.Length; i++)
+            {
+                arr[i] = rand.Next(-100, 100);
+            }
+            
+            Console.WriteLine("Before sorting: ");
+            foreach (var i in arr)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+            
+            Sort.InsertionSort(arr);
+            
+            Console.WriteLine("After sorting: ");
+            foreach (var i in arr)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+        }
     }
-
-
 }
