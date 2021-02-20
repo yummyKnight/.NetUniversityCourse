@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Runtime.Serialization;
 
 namespace Tasks {
-    
     public class BinaryTree {
         private BinaryNode _root;
 
@@ -16,9 +14,31 @@ namespace Tasks {
             {
                 _root = new BinaryNode(info);
             }
-            
         }
 
+        private BinaryNode Search(int info) {
+            try
+            {
+                var res = _root.Search(info);
+                return res;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("You need add at least 1 node");
+                throw;
+            }
+        }
+
+        public void Delete(int info) {
+            var node = _root.Search(info);
+            node.DeleteNode();
+        }
+
+        public void PrintTree() {
+            Console.WriteLine("------------------------------------");
+            _root.PrintInfo();
+            Console.WriteLine("------------------------------------");
+        }
     }
 
     internal class BinaryTreeException : Exception {
@@ -35,10 +55,10 @@ namespace Tasks {
         }
     }
 
-    public class BinaryNode {
-        private BinaryNode _leftNode = null;
-        private BinaryNode _rightNode = null;
-        private BinaryNode _parent = null;
+    internal class BinaryNode {
+        private BinaryNode _leftNode;
+        private BinaryNode _rightNode;
+        private BinaryNode _parent;
         public int Info { get; set; }
 
         public BinaryNode(int info) {
@@ -56,9 +76,18 @@ namespace Tasks {
             }
         }
 
+        public BinaryNode Search(int info) {
+            if (Info == info)
+                return this;
+            var node = info > Info ? _rightNode.Search(info) : _leftNode.Search(info);
+            if (node == null)
+                throw new BinaryTreeException("There is no node with that value");
+            return node;
+        }
+
         private void CheckInternalNode(ref BinaryNode internalNode, BinaryNode nodeToAdd) {
             if (internalNode == null)
-            {   
+            {
                 nodeToAdd._parent = this;
                 internalNode = nodeToAdd;
             }
@@ -106,7 +135,13 @@ namespace Tasks {
         }
 
         public override string ToString() {
-            return $"I:{Info}|P:{_parent.Info}|LC:{_leftNode?.Info}|RC:{_rightNode?.Info}|";
+            return $"I:{Info}|P:{_parent?.Info}|LC:{_leftNode?.Info}|RC:{_rightNode?.Info}|";
+        }
+
+        public void PrintInfo() {
+            Console.WriteLine(ToString());
+            _leftNode?.PrintInfo();
+            _rightNode?.PrintInfo();
         }
     }
 }

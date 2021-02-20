@@ -24,22 +24,28 @@ namespace Tasks {
         }
 
         public static void TestBinaryTree() {
-            BinaryNode root = new BinaryNode(5);
-            root.AddNode(new BinaryNode(10));
-            root.AddNode(new BinaryNode(4));
-            var node2 = new BinaryNode(7);
-            root.AddNode(node2);
-            root.AddNode(new BinaryNode(12));
-            root.AddNode(new BinaryNode(6));
-            root.AddNode(new BinaryNode(8));
-            var node = new BinaryNode(11);
-            root.AddNode(node);
-            // root.AddNode(new BinaryNode(13));
-            node2.DeleteNode();
-            node.DeleteNode();
-
-            Console.Read();
-
+            var tree = new BinaryTree();
+            tree.Add(5);
+            tree.Add(4);
+            tree.Add(10);
+            tree.Add(7);
+            tree.Add(12);
+            tree.Add(6);
+            tree.Add(8);
+            tree.Add(11);
+            tree.Add(13);
+            tree.PrintTree();
+            tree.Delete(10);
+            tree.Delete(8);
+            tree.PrintTree();
+            tree.Delete(5);
+            tree.PrintTree();
+            tree.Delete(6);
+            tree.Delete(12);
+            tree.Delete(11);
+            tree.Delete(13);
+            tree.Delete(4);
+            tree.PrintTree();
         }
     }
 
