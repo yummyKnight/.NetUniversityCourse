@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace Tasks {
         internal class ListException : Exception {
@@ -76,6 +77,21 @@ namespace Tasks {
             }
 
             _len--;
+        }
+
+        public void ReverseList() {
+            _head = _head.Reverse();
+        }
+
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            var node = _head;
+            while (node != null)
+            {
+                sb.Append(node.Information);
+                node = node.Next();
+            }
+            return sb.ToString();
         }
     }
 
@@ -154,6 +170,18 @@ namespace Tasks {
             _nextLinkedListNode = null;
             _prevLinkedListNode = null;
             return toReturn;
+        }
+
+        public LinkedListNode Reverse() {
+            LinkedListNode current = this, prev = null;
+            while (current != null) {
+                var next = current._nextLinkedListNode;
+                prev = current._prevLinkedListNode;
+                current._nextLinkedListNode = prev;
+                current._prevLinkedListNode = next;
+                current = next;
+            }
+            return prev._prevLinkedListNode;
         }
     }
 }

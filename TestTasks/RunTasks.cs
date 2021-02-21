@@ -4,13 +4,16 @@ using System.Runtime.Serialization;
 namespace Tasks {
     internal class Program {
         public static void Main(string[] args) {
-            TestInsertionSort();
+            TestList();
         }
 
         public static void TestList() {
             var list = new LinkedList();
             list.InsertLast(5);
             list.InsertLast(7);
+            list.InsertLast(9);
+            list.InsertLast(9);
+            list.InsertLast(9);
             list.InsertLast(9);
             list.PrintContent();
             list.InsertInPlace(0, 8);
@@ -20,6 +23,8 @@ namespace Tasks {
             list.DeleteInPlace(1);
             list.PrintContent();
             list.DeleteLast();
+            list.PrintContent();
+            list.ReverseList();
             list.PrintContent();
         }
 
