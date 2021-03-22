@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace WebApp.DAL {
-    interface IRepository<T> where T : class {
+    public interface IRepository<T> where T : class {
         IEnumerable<T> GetObjectsList(); // получение всех объектов
         T GetById(int id); // получение одного объекта по id
         void Create(T item); // создание объекта

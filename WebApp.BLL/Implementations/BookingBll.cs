@@ -1,10 +1,12 @@
 ﻿using System;
 using WebApp.BLL.Contracts;
 using WebApp.Domain;
+using WebApp.DAL;
 
 namespace WebApp.BLL.Implementations {
     public class BookingBll : IBooking {
-        private readonly IRepository repository;
+        
+        private readonly IRepository<Booking> repository;
         public void Cancel() {
             
         }

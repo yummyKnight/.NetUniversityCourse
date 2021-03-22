@@ -9,4 +9,12 @@
       <ProjectReference Include="..\WebApp.Domain\WebApp.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EntityFramework" Version="6.4.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Entities" />
+    </ItemGroup>
+
 </Project>
