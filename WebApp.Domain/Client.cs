@@ -1,14 +1,13 @@
 ﻿using System;
+using WebApp.Domain.Base;
 
 namespace WebApp.Domain {
-    public class Client {
-        public Client(uint id) {
+    public class Client : BaseClient{
+        public Client(int id) {
             Id = id;
         }
 
-        public uint Id { get; }
-        public string FullName { get; set; }
-        public string Address { get; set; }
-        public uint OrdersNum { get; set; }
+        public int Id { get; }
+
     }
 }

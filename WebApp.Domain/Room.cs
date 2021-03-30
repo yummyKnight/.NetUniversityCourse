@@ -1,7 +1,7 @@
-﻿namespace WebApp.Domain {
-    public class Room {
+﻿using WebApp.Domain.Base;
+
+namespace WebApp.Domain {
+    public class Room : BasePaymentType {
         public uint Id { get; }
-        public RoomType Type { get; set; }
-        public uint Price { get; set; }
     }
 }
