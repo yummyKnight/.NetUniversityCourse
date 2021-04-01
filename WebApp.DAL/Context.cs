@@ -9,8 +9,8 @@ namespace WebApp.DAL
             Database.SetInitializer(new CreateDatabaseIfNotExists<Context>());
         }
         
-        public DbSet<EmployeeEntity> Employees { get; set; }
-        public DbSet<DepartmentEntity> Departments { get; set; }
+        // public DbSet<EmployeeEntity> Employees { get; set; }
+        // public DbSet<DepartmentEntity> Departments { get; set; }
 
     }
 }
