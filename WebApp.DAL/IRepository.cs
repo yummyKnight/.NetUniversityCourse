@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebApp.DAL.Entities;
 
 namespace WebApp.DAL {
     public interface IRepository<TDomainClass, TIdentityModel, TUpdateModel> 
@@ -13,6 +17,7 @@ namespace WebApp.DAL {
         Task<TDomainClass> CreateAsync(TUpdateModel model); // создание объекта
         Task<TDomainClass> UpdateAsync(TUpdateModel model); // обновление объекта
         void DeleteAsync(TIdentityModel model); // удаление объекта по id
+        
     }
 
     
