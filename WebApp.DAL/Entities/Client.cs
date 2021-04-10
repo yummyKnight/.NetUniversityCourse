@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebApp.DAL.Models;
 
 #nullable disable
 
-namespace WebApp.DAL.Models
+namespace WebApp.DAL.Entities
 {
     public partial class Client
     {
