@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using WebApp.BLL.Contracts;
 using WebApp.BLL.Implementations;
 using WebApp.DAL.Entities;
-using WebApp.DAL.Models;
 using WebApp.Domain.Contracts;
 using WebApp.Domain.Models;
 using WebApp.DTO.Read;
@@ -18,15 +17,21 @@ namespace WebAPI.Controllers {
     [Route("api/client")]
     public class ClientController : ControllerBase {
         private ILogger<ClientController> Logger { get; }
-        private IClientGetService ClientGetService { get; }
-        private IUpdateService<ClientUpdateModel, WebApp.Domain.Client> ClientUpdateService { get; }
-        private ICreateService<ClientUpdateModel, WebApp.Domain.Client> ClientCreateService { get; }
+        private IGetService<IClientContainer, WebApp.Domain.Client> ClientGetService { get; }
+
+        private IUpdateService<ClientUpdateModel, WebApp.Domain.Contracts.IClientContainer, WebApp.Domain.Client>
+            ClientUpdateService { get; }
+
+        private ICreateService<ClientUpdateModel, WebApp.Domain.Contracts.IClientContainer, WebApp.Domain.Client>
+            ClientCreateService { get; }
+
         private IDeleteService<IClientContainer> ClientDeleteService { get; }
         private IMapper Mapper { get; }
 
-        public ClientController(ILogger<ClientController> logger, IClientGetService clientGetService,
-            IUpdateService<ClientUpdateModel, Client> clientUpdateService,
-            ICreateService<ClientUpdateModel, Client> clientCreateService,
+        public ClientController(ILogger<ClientController> logger,
+            IGetService<IClientContainer, Client> clientGetService,
+            IUpdateService<ClientUpdateModel, IClientContainer, Client> clientUpdateService,
+            ICreateService<ClientUpdateModel, IClientContainer, Client> clientCreateService,
             IDeleteService<IClientContainer> clientDeleteService, IMapper mapper) {
             Logger = logger;
             ClientGetService = clientGetService;

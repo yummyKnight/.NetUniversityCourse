@@ -1,5 +1,4 @@
 ﻿using System;
-using WebApp.DAL.Models;
 
 #nullable disable
 

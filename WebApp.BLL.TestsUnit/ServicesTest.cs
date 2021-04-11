@@ -27,7 +27,7 @@ namespace WebApp.BLL.TestsUnit {
             var clientGetService = new ClientGetService(clientRepository.Object);
 
             // Act
-            var action = new Func<Task>(() => clientGetService.ValidateAsync(clientContainer.Object, false));
+            var action = new Func<Task>(() => clientGetService.ValidateAsync(clientContainer.Object));
 
             // Assert
             await action.Should().NotThrowAsync<Exception>();
@@ -47,7 +47,7 @@ namespace WebApp.BLL.TestsUnit {
             var clientGetService = new ClientGetService(clientRep.Object);
 
             // Act
-            var action = new Func<Task>(() => clientGetService.ValidateAsync(clientContainer.Object, false));
+            var action = new Func<Task>(() => clientGetService.ValidateAsync(clientContainer.Object));
 
             // Assert
             await action.Should().ThrowAsync<InvalidOperationException>($"Department not found by id {id}");

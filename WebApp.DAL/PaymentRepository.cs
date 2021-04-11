@@ -5,10 +5,13 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebApp.DAL.Entities;
 using WebApp.Domain;
+using WebApp.Domain.Contracts;
 using WebApp.Domain.Models;
+using PaymentEntity = WebApp.DAL.Entities.Payment;
+using PaymentDomain = WebApp.Domain.Payment;
 
 namespace WebApp.DAL {
-    public class PaymentRepository : IRepository<Payment, PaymentIdentityModel, PaymentUpdateModel> {
+    public class PaymentRepository : IRepository<PaymentDomain, IPaymentContainer, PaymentUpdateModel> {
         private HotelDBContext Context;
         private IMapper Mapper { get; }
 
@@ -17,36 +20,45 @@ namespace WebApp.DAL {
             Mapper = mapper;
         }
 
-        public async Task<IEnumerable<Payment>> GetByAsync() {
-            return Mapper.Map<IEnumerable<Payment>>(
+        public async Task<IEnumerable<PaymentDomain>> GetByAsync() {
+            return Mapper.Map<IEnumerable<PaymentDomain>>(
                 await Context.Payments.Include(x => x.Client)
                     .Include(x => x.PaymentType).ToListAsync());
         }
 
-        public  async Task<Payment> GetByAsync(PaymentIdentityModel model) {
+        public async Task<PaymentDomain> CreateAsync(PaymentUpdateModel model) {
+            var result = await Context.Payments.AddAsync(Mapper.Map<PaymentEntity>(model));
+            await Context.SaveChangesAsync();
+            return Mapper.Map<PaymentDomain>(result.Entity);
+        }
+
+        public async Task<PaymentDomain> UpdateAsync(PaymentUpdateModel model) {
+            var existing = await Get(model);
+            Context.Entry(existing).State = EntityState.Modified;
+            var result = Mapper.Map(model, existing);
+            Context.Update(result);
+            await Context.SaveChangesAsync();
+            return Mapper.Map<PaymentDomain>(result);
+        }
+
+        public Task DeleteAsync(IPaymentContainer model) {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PaymentDomain> GetByAsync(IPaymentContainer model) {
             var res = await Get(model);
-            return Mapper.Map<Payment>(res);
+            return Mapper.Map<PaymentDomain>(res);
         }
 
-        public Task<Payment> CreateAsync(PaymentUpdateModel model) {
-            throw new NotImplementedException();
-        }
-
-        public Task<Payment> UpdateAsync(PaymentUpdateModel model) {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(PaymentIdentityModel model) {
-            throw new NotImplementedException();
-        }
-
-        private async Task<Models.Payment> Get(PaymentIdentityModel client) {
-            if (client == null)
+        private async Task<PaymentEntity> Get(IPaymentContainer payment) {
+            if (payment == null)
             {
-                throw new ArgumentNullException(nameof(client));
+                throw new ArgumentNullException(nameof(payment));
             }
 
-            return await this.Context.Payments.FirstOrDefaultAsync(x => x.Id == client.PaymentId);
+            if (payment.PaymentId.HasValue)
+                return await this.Context.Payments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == payment.PaymentId);
+            return null;
         }
     }
 }

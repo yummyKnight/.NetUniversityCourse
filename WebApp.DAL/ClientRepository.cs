@@ -59,5 +59,9 @@ namespace WebApp.DAL {
             Context.Clients.Remove(Mapper.Map<Client>(model));
             await Context.SaveChangesAsync();
         }
+
+        static void Main(string[] args) {
+            
+        }
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using WebApp.DAL.Entities;
+﻿using System.Collections.Generic;
 
 #nullable disable
 
-namespace WebApp.DAL.Models
+namespace WebApp.DAL.Entities
 {
     public partial class RoomType
     {
