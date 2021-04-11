@@ -19,11 +19,10 @@ namespace WebApp.DAL {
             Context = context;
             Mapper = mapper;
         }
-
+        // TODO: TODO: add Include
         public async Task<IEnumerable<PaymentDomain>> GetByAsync() {
             return Mapper.Map<IEnumerable<PaymentDomain>>(
-                await Context.Payments.Include(x => x.Client)
-                    .Include(x => x.PaymentType).ToListAsync());
+                await Context.Payments.Include(x => x.Client).ToListAsync());
         }
 
         public async Task<PaymentDomain> CreateAsync(PaymentUpdateModel model) {
@@ -41,15 +40,16 @@ namespace WebApp.DAL {
             return Mapper.Map<PaymentDomain>(result);
         }
 
-        public Task DeleteAsync(IPaymentContainer model) {
-            throw new NotImplementedException();
+        public async Task DeleteAsync(IPaymentContainer model) {
+            Context.Payments.Remove(Mapper.Map<PaymentEntity>(model));
+            await Context.SaveChangesAsync();
         }
 
         public async Task<PaymentDomain> GetByAsync(IPaymentContainer model) {
             var res = await Get(model);
             return Mapper.Map<PaymentDomain>(res);
         }
-
+        // TODO: TODO: add Include
         private async Task<PaymentEntity> Get(IPaymentContainer payment) {
             if (payment == null)
             {
@@ -57,7 +57,7 @@ namespace WebApp.DAL {
             }
 
             if (payment.PaymentId.HasValue)
-                return await this.Context.Payments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == payment.PaymentId);
+                return await this.Context.Payments.AsNoTracking().Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == payment.PaymentId);
             return null;
         }
     }
