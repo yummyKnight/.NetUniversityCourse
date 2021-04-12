@@ -3,14 +3,10 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace WebApp.DAL.Entities
-{
-    public partial class Client
-    {
-        public Client()
-        {
+namespace WebApp.DAL.Entities {
+    public partial class Client {
+        public Client() {
             Bookings = new HashSet<Booking>();
-            Payments = new HashSet<Payment>();
         }
 
         public int Id { get; set; }
@@ -21,6 +17,5 @@ namespace WebApp.DAL.Entities
         public DateTime? ModifiedAt { get; set; }
 
         public virtual ICollection<Booking> Bookings { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
     }
 }

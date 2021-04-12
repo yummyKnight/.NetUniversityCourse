@@ -9,9 +9,9 @@ using WebApp.Domain.Contracts;
 using WebApp.Domain.Models;
 using PaymentEntity = WebApp.DAL.Entities.Payment;
 using PaymentDomain = WebApp.Domain.Payment;
-
+using IPaymentRep = WebApp.DAL.IRepository<WebApp.Domain.Payment, WebApp.Domain.Contracts.IPaymentContainer, WebApp.Domain.Models.PaymentUpdateModel>;
 namespace WebApp.DAL {
-    public class PaymentRepository : IRepository<PaymentDomain, IPaymentContainer, PaymentUpdateModel> {
+    public class PaymentRepository : IPaymentRep {
         private HotelDBContext Context;
         private IMapper Mapper { get; }
 
@@ -22,7 +22,7 @@ namespace WebApp.DAL {
         // TODO: TODO: add Include
         public async Task<IEnumerable<PaymentDomain>> GetByAsync() {
             return Mapper.Map<IEnumerable<PaymentDomain>>(
-                await Context.Payments.Include(x => x.Client).ToListAsync());
+                await Context.Payments.Include(x => x.Booking).ToListAsync());
         }
 
         public async Task<PaymentDomain> CreateAsync(PaymentUpdateModel model) {
@@ -57,7 +57,7 @@ namespace WebApp.DAL {
             }
 
             if (payment.PaymentId.HasValue)
-                return await this.Context.Payments.AsNoTracking().Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == payment.PaymentId);
+                return await this.Context.Payments.AsNoTracking().Include(x => x.Booking).FirstOrDefaultAsync(x => x.Id == payment.PaymentId);
             return null;
         }
     }

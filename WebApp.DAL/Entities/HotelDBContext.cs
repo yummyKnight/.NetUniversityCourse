@@ -21,8 +21,6 @@ namespace WebApp.DAL.Entities {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                // optionsBuilder.UseNpgsql("Host=localhost;Database=HotelDB;Username=postgres;Password=admin");
             }
         }
 
@@ -129,8 +127,6 @@ namespace WebApp.DAL.Entities {
                     .HasColumnType("date")
                     .HasColumnName("canceled_at");
 
-                entity.Property(e => e.ClientId).HasColumnName("client_id");
-
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("date")
                     .HasColumnName("created_at")
@@ -147,11 +143,6 @@ namespace WebApp.DAL.Entities {
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.BookingId)
                     .HasConstraintName("Payment_booking_id_fkey");
-
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.ClientId)
-                    .HasConstraintName("Payment_client_id_fkey");
 
                 entity.HasOne(d => d.PaymentType)
                     .WithMany(p => p.Payments)
