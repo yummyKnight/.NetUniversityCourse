@@ -30,13 +30,13 @@ namespace WebApp.DAL {
             }
 
             if (client.BookingId.HasValue)
-                return await this.Context.Bookings.AsNoTracking().FirstOrDefaultAsync(x => x.Id == client.BookingId);
+                return await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client).Include(booking => booking.Room).FirstOrDefaultAsync(x => x.Id == client.BookingId);
             return null;
         }
 
         public async Task<IEnumerable<DomainBooking>> GetByAsync() {
             return this.Mapper.Map<IEnumerable<DomainBooking>>(
-                await this.Context.Bookings.AsNoTracking().ToListAsync());
+                await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client).Include(booking => booking.Room).ToListAsync());
         }
 
         public async Task<DomainBooking> GetByAsync(IBookingContainer model) {

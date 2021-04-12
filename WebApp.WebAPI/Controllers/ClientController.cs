@@ -4,15 +4,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApp.BLL.Contracts;
-using WebApp.BLL.Implementations;
-using WebApp.DAL.Entities;
 using WebApp.Domain.Contracts;
 using WebApp.Domain.Models;
 using WebApp.DTO.Read;
 using WebApp.DTO.Request;
 using Client = WebApp.Domain.Client;
 
-namespace WebAPI.Controllers {
+namespace WebApp.WebAPI.Controllers {
     [ApiController]
     [Route("api/client")]
     public class ClientController : ControllerBase {

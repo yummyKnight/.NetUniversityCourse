@@ -54,14 +54,14 @@ namespace WebApp.DAL {
         }
 
         // TODO: add Include
-        private async Task<EntityRoom> Get(IRoomContainer client) {
-            if (client == null)
+        private async Task<EntityRoom> Get(IRoomContainer room) {
+            if (room == null)
             {
-                throw new ArgumentNullException(nameof(client));
+                throw new ArgumentNullException(nameof(room));
             }
 
-            if (client.RoomId.HasValue)
-                return await this.Context.Rooms.AsNoTracking().FirstOrDefaultAsync(x => x.Id == client.RoomId);
+            if (room.RoomId.HasValue)
+                return await this.Context.Rooms.AsNoTracking().FirstOrDefaultAsync(x => x.Id == room.RoomId);
             return null;
         }
     }

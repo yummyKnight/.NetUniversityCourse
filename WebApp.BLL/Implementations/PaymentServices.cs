@@ -47,7 +47,6 @@ namespace WebApp.BLL.Implementations {
 
         public async Task<DomainPayment> UpdateAsync(PaymentUpdateModel model) {
             await booking_service.ValidateAsync(model);
-            await client_service.ValidateAsync(model);
             await payment_service.ValidateAsync(model);
             return await _repository.UpdateAsync(model);
         }
@@ -66,7 +65,6 @@ namespace WebApp.BLL.Implementations {
         }
 
         public async Task<DomainPayment> CreateAsync(PaymentUpdateModel model) {
-            await client_service.ValidateAsync(model);
             await booking_service.ValidateAsync(model);
             return await _repository.CreateAsync(model);
         }

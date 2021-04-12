@@ -16,10 +16,10 @@ namespace WebApp.DTO.Request {
 
     public class BookingCreateDTO {
         [Required(ErrorMessage = "ClientId is required")]
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
 
         [Required(ErrorMessage = "RoomId is required")]
-        public int RoomId { get; set; }
+        public int? RoomId { get; set; }
 
         [Required(ErrorMessage = "ReservedDay is required")]
         public DateTime ReservedDay { get; set; }
@@ -33,14 +33,11 @@ namespace WebApp.DTO.Request {
 
     // TODO: add PaymentTypeId
     public class PaymentCreateDTO {
-        [Required(ErrorMessage = "ClientId is required")]
-        public int ClientId { get; set; }
-
         [Required(ErrorMessage = "BookingId is required")]
-        public int BookingId { get; set; }
+        public int? BookingId { get; set; }
 
         [Required(ErrorMessage = "Amount is required")]
-        public uint Amount { get; set; }
+        public uint? Amount { get; set; }
 
         public bool? IsCanceled { get; set; }
         public DateTime CanceledAt { get; set; }
@@ -48,6 +45,6 @@ namespace WebApp.DTO.Request {
 
     public class RoomCreateDTO {
         [Required(ErrorMessage = "Price is required")]
-        public uint Price { get; set; }
+        public uint? Price { get; set; }
     }
 }
