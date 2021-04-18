@@ -14,7 +14,6 @@ using WebApp.Domain.Models;
 namespace WebApp.BLL.TestsUnit {
     [TestFixture]
     public class ServicesTest {
-        
         [Test]
         public async Task ValidateAsync_ClientExists_DoesNothing() {
             // Arrange
@@ -32,8 +31,9 @@ namespace WebApp.BLL.TestsUnit {
             // Assert
             await action.Should().NotThrowAsync<Exception>();
         }
+
         [Test]
-        public async Task ValidateAsync_DepartmentNotExists_ThrowsError() {
+        public async Task ValidateAsync_ClientExists_ThrowsError() {
             // Arrange
             var fixture = new Fixture();
             var id = fixture.Create<int>();
