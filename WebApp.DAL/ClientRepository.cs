@@ -11,10 +11,10 @@ using Client = WebApp.DAL.Entities.Client;
 
 namespace WebApp.DAL {
     public class ClientRepository : IClientRepository {
-        private HotelDBContext Context { get; }
+        private HotelDbContext Context { get; }
         private IMapper Mapper { get; }
 
-        public ClientRepository(HotelDBContext context, IMapper mapper) {
+        public ClientRepository(HotelDbContext context, IMapper mapper) {
             Context = context;
             Mapper = mapper;
         }

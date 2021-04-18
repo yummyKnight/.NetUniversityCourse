@@ -29,7 +29,7 @@ namespace WebAPI {
             this.CreateMap<PaymentUpdateModel, WebApp.DAL.Entities.Payment>();
             this.CreateMap<WebApp.Domain.Payment, PaymentDTO>();
             // Room
-            CreateMap<WebApp.DAL.Entities.Room, WebApp.Domain.Room>();
+            CreateMap<WebApp.DAL.Entities.Room, Room>();
             CreateMap<IRoomContainer, WebApp.DAL.Entities.Room>().ForMember("Id",
                 opt => opt.MapFrom(c => c.RoomId));
             this.CreateMap<Room, RoomDTO>();
@@ -37,6 +37,15 @@ namespace WebAPI {
                 opt => opt.MapFrom(c => c.RoomId));
             this.CreateMap<RoomCreateDTO, RoomUpdateModel>();
             this.CreateMap<RoomUpdateDTO, RoomUpdateModel>();
+            // RoomType
+            CreateMap<WebApp.DAL.Entities.RoomType, RoomType>();
+            CreateMap<IRoomTypeContainer, WebApp.DAL.Entities.RoomType>().ForMember("Id",
+                opt => opt.MapFrom(c => c.RoomTypeId));
+            this.CreateMap<RoomType, RoomTypeDTO>();
+            this.CreateMap<RoomTypeUpdateModel, RoomType>().ForMember("Id",
+                opt => opt.MapFrom(c => c.RoomTypeId));
+            this.CreateMap<RoomTypeCreateDTO, RoomTypeUpdateModel>();
+            this.CreateMap<RoomTypeUpdateDTO, RoomTypeUpdateModel>();
             // Booking
             CreateMap<WebApp.DAL.Entities.Booking, WebApp.Domain.Booking>();
             CreateMap<IBookingContainer, WebApp.DAL.Entities.Booking>().ForMember("Id",

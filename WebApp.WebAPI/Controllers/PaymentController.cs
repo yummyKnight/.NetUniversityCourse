@@ -46,7 +46,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("")]
         public async Task<IEnumerable<PaymentDTO>> GetAsync() {
-            this.Logger.LogTrace($"{nameof(GetAsync)} called");
+            this.Logger.LogDebug($"{nameof(GetAsync)} called");
             var res = await PaymentGetService.GetAsync();
 
             return Mapper.Map<IEnumerable<PaymentDTO>>(res);
@@ -55,7 +55,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("{paymentId}")]
         public async Task<PaymentDTO> GetAsync(int paymentId) {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {paymentId}");
+            this.Logger.LogDebug($"{nameof(this.GetAsync)} called for {paymentId}");
 
             return this.Mapper.Map<PaymentDTO>(
                 await this.PaymentGetService.GetAsync(new PaymentIdentityModel(paymentId)));
@@ -64,7 +64,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPut]
         [Route("")]
         public async Task<PaymentDTO> PutAsync(PaymentCreateDTO dto) {
-            this.Logger.LogTrace($"{nameof(PaymentCreateService)} called booking with id = {dto.BookingId}");
+            this.Logger.LogDebug($"{nameof(PaymentCreateService)} called booking with id = {dto.BookingId}");
 
             return this.Mapper.Map<PaymentDTO>(
                 await this.PaymentCreateService.CreateAsync(Mapper.Map<PaymentUpdateModel>(dto)));
@@ -73,7 +73,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPatch]
         [Route("")]
         public async Task<PaymentDTO> PatchAsync(PaymentUpdateDTO dto) {
-            this.Logger.LogTrace($"{nameof(PaymentUpdateService)} called for {dto.PaymentId}");
+            this.Logger.LogDebug($"{nameof(PaymentUpdateService)} called for {dto.PaymentId}");
 
             return this.Mapper.Map<PaymentDTO>(
                 await this.PaymentUpdateService.UpdateAsync(Mapper.Map<PaymentUpdateModel>(dto)));
@@ -82,7 +82,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpDelete]
         [Route("{clientId}")]
         public async Task DeleteAsync(int clientId) {
-            this.Logger.LogTrace($"{nameof(PaymentDeleteService)} called for {clientId}");
+            this.Logger.LogDebug($"{nameof(PaymentDeleteService)} called for {clientId}");
             await PaymentDeleteService.DeleteAsync(new PaymentIdentityModel(clientId));
         }
     }

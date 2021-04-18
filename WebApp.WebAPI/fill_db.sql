@@ -1,4 +1,9 @@
-﻿insert into "Client" (full_name, address, orders_num)
+﻿TRUNCATE table "Client" CASCADE;
+TRUNCATE table "Booking" CASCADE;
+TRUNCATE table "Payment" CASCADE;
+TRUNCATE table "Room" CASCADE;
+TRUNCATE table "RoomType" CASCADE;
+insert into "Client" (full_name, address, orders_num)
 values ('Vasya Petrov', 'Moskow', 1),
        ('Ilya Smoilov', 'SPB', 1);
 insert into "RoomType" (room_type)
@@ -22,22 +27,18 @@ VALUES (4, 100000);
 INSERT into "Room" (room_type_id, price)
 VALUES (5, 150000);
 insert into "Booking" (client_id, room_id, reserved_day, check_in, check_out)
-values (1, 3, date '2020-04-12', date '2020-04-16', date '2020-04-20');
+values (1, 1, date '2020-04-12', date '2020-04-16', date '2020-04-20');
 insert into "Booking" (client_id, room_id, reserved_day, check_in, check_out)
-values (1, 4, date '2020-05-10', date '2020-05-20', date '2020-05-25');
+values (1, 2, date '2020-05-10', date '2020-05-20', date '2020-05-25');
 insert into "Booking" (client_id, room_id, reserved_day, check_in, check_out)
-values (2, 5, date '2020-04-25', date '2020-05-17', date '2020-05-25');
+values (2, 3, date '2020-04-25', date '2020-05-17', date '2020-05-25');
 insert into "Booking" (client_id, room_id, reserved_day, check_in, check_out)
-values (2, 6, date '2020-05-26', date '2020-06-10', date '2020-06-20');
-insert into "PaymentType" (type)
-values ('EUR'),
-       ('DOL'),
-       ('RUB');
-insert into "Payment" (booking_id, amount, payment_type_id)
-values (2, 100000, 3);
-insert into "Payment" (booking_id, amount, payment_type_id)
-values (3, 1000, 1);
-insert into "Payment" (booking_id, amount, payment_type_id)
-values (4, 5000, 2);
-insert into "Payment" (booking_id, amount, payment_type_id)
-values (5, 2000, 2);
+values (2, 4, date '2020-05-26', date '2020-06-10', date '2020-06-20');
+insert into "Payment" (booking_id, amount)
+values (1, 100000);
+insert into "Payment" (booking_id, amount)
+values (2, 1000);
+insert into "Payment" (booking_id, amount)
+values (3, 5000);
+insert into "Payment" (booking_id, amount)
+values (4, 2000);

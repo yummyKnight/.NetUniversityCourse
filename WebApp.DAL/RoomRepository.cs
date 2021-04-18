@@ -14,10 +14,10 @@ using IRoomRep =
 
 namespace WebApp.DAL {
     public class RoomRepository : IRoomRep {
-        private HotelDBContext Context { get; }
+        private HotelDbContext Context { get; }
         private IMapper Mapper { get; }
 
-        public RoomRepository(HotelDBContext context, IMapper mapper) {
+        public RoomRepository(HotelDbContext context, IMapper mapper) {
             Context = context;
             Mapper = mapper;
         }
@@ -25,7 +25,7 @@ namespace WebApp.DAL {
         // TODO: add Include
         public async Task<IEnumerable<DomainRoom>> GetByAsync() {
             return this.Mapper.Map<IEnumerable<DomainRoom>>(
-                await this.Context.Rooms.AsNoTracking().ToListAsync());
+                await this.Context.Rooms.AsNoTracking().Include(x => x.RoomType).ToListAsync());
         }
 
         public async Task<DomainRoom> GetByAsync(IRoomContainer model) {

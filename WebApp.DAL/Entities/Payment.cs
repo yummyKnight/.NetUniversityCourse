@@ -16,6 +16,5 @@ namespace WebApp.DAL.Entities
         public DateTime? CanceledAt { get; set; }
 
         public virtual Booking Booking { get; set; }
-        public virtual PaymentType PaymentType { get; set; }
     }
 }

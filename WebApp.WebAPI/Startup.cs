@@ -19,6 +19,9 @@ using IRoomRep =
 using IBookingRep =
     WebApp.DAL.IRepository<WebApp.Domain.Booking, WebApp.Domain.Contracts.IBookingContainer,
         WebApp.Domain.Models.BookingUpdateModel>;
+using IRoomTypeRep =
+    WebApp.DAL.IRepository<WebApp.Domain.RoomType, WebApp.Domain.Contracts.IRoomTypeContainer,
+        WebApp.Domain.Models.RoomTypeUpdateModel>;
 
 
 namespace WebApp.WebAPI {
@@ -44,7 +47,7 @@ namespace WebApp.WebAPI {
                 .AddScoped<IUpdateService<ClientUpdateModel, IClientContainer, WebApp.Domain.Client>,
                     ClientUpdateService>();
             services.AddScoped<IDeleteService<IClientContainer>, ClientDeleteService>();
-            
+
             // Payment
             services.AddScoped<IGetService<IPaymentContainer, WebApp.Domain.Payment>, PaymentGetService>();
             services
@@ -54,7 +57,7 @@ namespace WebApp.WebAPI {
                 .AddScoped<IUpdateService<PaymentUpdateModel, IPaymentContainer, WebApp.Domain.Payment>,
                     PaymentUpdateService>();
             services.AddScoped<IDeleteService<IPaymentContainer>, PaymentDeleteService>();
-            
+
             // Booking
             services.AddScoped<IGetService<IBookingContainer, WebApp.Domain.Booking>, BookingGetService>();
             services
@@ -64,7 +67,7 @@ namespace WebApp.WebAPI {
                 .AddScoped<IUpdateService<BookingUpdateModel, IBookingContainer, WebApp.Domain.Booking>,
                     BookingUpdateService>();
             services.AddScoped<IDeleteService<IBookingContainer>, BookingDeleteService>();
-            
+
             // Room
             services.AddScoped<IGetService<IRoomContainer, WebApp.Domain.Room>, RoomGetService>();
             services
@@ -75,18 +78,28 @@ namespace WebApp.WebAPI {
                     RoomUpdateService>();
             services.AddScoped<IDeleteService<IRoomContainer>, RoomDeleteService>();
 
+            // RoomType
+            services.AddScoped<IGetService<IRoomTypeContainer, WebApp.Domain.RoomType>, RoomTypeGetService>();
+            services
+                .AddScoped<ICreateService<RoomTypeUpdateModel, IRoomTypeContainer, WebApp.Domain.RoomType>,
+                    RoomTypeCreateService>();
+            services
+                .AddScoped<IUpdateService<RoomTypeUpdateModel, IRoomTypeContainer, WebApp.Domain.RoomType>,
+                    RoomTypeUpdateService>();
+            services.AddScoped<IDeleteService<IRoomTypeContainer>, RoomTypeDeleteService>();
+
             // DataAccess
             services.Add(new ServiceDescriptor(typeof(IClientRepository),
                 typeof(ClientRepository), ServiceLifetime.Transient));
             services.AddTransient<IPaymentRep, PaymentRepository>();
             services.AddTransient<IBookingRep, BookingRepository>();
             services.AddTransient<IRoomRep, RoomRepository>();
+            services.AddTransient<IRoomTypeRep, RoomTypeRepo>();
             // services.Add(new ServiceDescriptor(typeof(IDepartmentDataAccess), typeof(DepartmentDataAccess), ServiceLifetime.Transient));
 
             // DB Contexts
-            services.AddDbContext<HotelDBContext>(options =>
+            services.AddDbContext<HotelDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

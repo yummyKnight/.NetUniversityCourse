@@ -46,7 +46,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("")]
         public async Task<IEnumerable<BookingDTO>> GetAsync() {
-            this.Logger.LogTrace($"{nameof(GetAsync)} called");
+            this.Logger.LogDebug($"{nameof(GetAsync)} called");
             var res = await BookingGetService.GetAsync();
 
             return Mapper.Map<IEnumerable<BookingDTO>>(res);
@@ -55,7 +55,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("{bookingId}")]
         public async Task<BookingDTO> GetAsync(int bookingId) {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {bookingId}");
+            this.Logger.LogDebug($"{nameof(this.GetAsync)} called for {bookingId}");
             return this.Mapper.Map<BookingDTO>(
                 await this.BookingGetService.GetAsync(new BookingIdentityModel(bookingId)));
         }
@@ -63,7 +63,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPut]
         [Route("")]
         public async Task<BookingDTO> PutAsync(BookingCreateDTO dto) {
-            this.Logger.LogTrace($"{nameof(BookingCreateService)} called for room with id = {dto.RoomId}");
+            this.Logger.LogDebug($"{nameof(BookingCreateService)} called for room with id = {dto.RoomId}");
 
             return this.Mapper.Map<BookingDTO>(
                 await this.BookingCreateService.CreateAsync(Mapper.Map<BookingUpdateModel>(dto)));
@@ -72,7 +72,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPatch]
         [Route("")]
         public async Task<BookingDTO> PatchAsync(BookingUpdateDTO dto) {
-            this.Logger.LogTrace($"{nameof(BookingUpdateService)} called for client with id = {dto.ClientId}");
+            this.Logger.LogDebug($"{nameof(BookingUpdateService)} called for client with id = {dto.ClientId}");
 
             return this.Mapper.Map<BookingDTO>(
                 await this.BookingUpdateService.UpdateAsync(Mapper.Map<BookingUpdateModel>(dto)));
@@ -81,7 +81,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpDelete]
         [Route("{bookingId}")]
         public async Task DeleteAsync(int bookingId) {
-            this.Logger.LogTrace($"{nameof(BookingDeleteService)} called for {bookingId}");
+            this.Logger.LogDebug($"{nameof(BookingDeleteService)} called for {bookingId}");
             await BookingDeleteService.DeleteAsync(new BookingIdentityModel(bookingId));
         }
     }

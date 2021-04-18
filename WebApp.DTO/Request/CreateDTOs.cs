@@ -47,4 +47,9 @@ namespace WebApp.DTO.Request {
         [Required(ErrorMessage = "Price is required")]
         public uint? Price { get; set; }
     }
+
+    public class RoomTypeCreateDTO {
+        [Required(ErrorMessage = "Type is required")]
+        public string Type { get; set; }
+    }
 }

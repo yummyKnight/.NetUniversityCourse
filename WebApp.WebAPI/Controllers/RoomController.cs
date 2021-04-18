@@ -46,7 +46,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("")]
         public async Task<IEnumerable<RoomDTO>> GetAsync() {
-            this.Logger.LogTrace($"{nameof(GetAsync)} called");
+            this.Logger.LogDebug($"{nameof(GetAsync)} called");
             var res = await RoomGetService.GetAsync();
 
             return Mapper.Map<IEnumerable<RoomDTO>>(res);
@@ -55,7 +55,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("{roomId}")]
         public async Task<RoomDTO> GetAsync(int roomId) {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {roomId}");
+            this.Logger.LogDebug($"{nameof(this.GetAsync)} called for {roomId}");
 
             return this.Mapper.Map<RoomDTO>(
                 await this.RoomGetService.GetAsync(new RoomIdentityModel(roomId)));
@@ -64,7 +64,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPut]
         [Route("")]
         public async Task<RoomDTO> PutAsync(RoomCreateDTO dto) {
-            this.Logger.LogTrace($"{nameof(RoomCreateService)} called");
+            this.Logger.LogDebug($"{nameof(RoomCreateService)} called");
 
             return this.Mapper.Map<RoomDTO>(
                 await this.RoomCreateService.CreateAsync(Mapper.Map<RoomUpdateModel>(dto)));
@@ -73,7 +73,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPatch]
         [Route("")]
         public async Task<RoomDTO> PatchAsync(RoomUpdateDTO dto) {
-            this.Logger.LogTrace($"{nameof(RoomUpdateService)} called for {dto.RoomId}");
+            this.Logger.LogDebug($"{nameof(RoomUpdateService)} called for {dto.RoomId}");
 
             return this.Mapper.Map<RoomDTO>(
                 await this.RoomUpdateService.UpdateAsync(Mapper.Map<RoomUpdateModel>(dto)));
@@ -82,7 +82,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpDelete]
         [Route("{roomId}")]
         public async Task DeleteAsync(int roomId) {
-            this.Logger.LogTrace($"{nameof(RoomDeleteService)} called for {roomId}");
+            this.Logger.LogDebug($"{nameof(RoomDeleteService)} called for {roomId}");
             await RoomDeleteService.DeleteAsync(new RoomIdentityModel(roomId));
         }
     }

@@ -42,7 +42,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("")]
         public async Task<IEnumerable<ClientDTO>> GetAsync() {
-            this.Logger.LogTrace($"{nameof(GetAsync)} called");
+            this.Logger.LogDebug($"{nameof(GetAsync)} called");
             var res = await ClientGetService.GetAsync();
 
             return Mapper.Map<IEnumerable<ClientDTO>>(res);
@@ -51,7 +51,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpGet]
         [Route("{clientId}")]
         public async Task<ClientDTO> GetAsync(int clientId) {
-            this.Logger.LogTrace($"{nameof(this.GetAsync)} called for {clientId}");
+            this.Logger.LogDebug($"{nameof(this.GetAsync)} called for {clientId}");
 
             return this.Mapper.Map<ClientDTO>(await this.ClientGetService.GetAsync(new ClientIdentityModel(clientId)));
         }
@@ -59,7 +59,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPut]
         [Route("")]
         public async Task<ClientDTO> PutAsync(ClientCreateDTO dto) {
-            this.Logger.LogTrace($"{nameof(ClientCreateService)} called for {dto.FullName}");
+            this.Logger.LogDebug($"{nameof(ClientCreateService)} called for {dto.FullName}");
 
             return this.Mapper.Map<ClientDTO>(
                 await this.ClientCreateService.CreateAsync(Mapper.Map<ClientUpdateModel>(dto)));
@@ -68,7 +68,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpPatch]
         [Route("")]
         public async Task<ClientDTO> PatchAsync(ClientUpdateDTO dto) {
-            this.Logger.LogTrace($"{nameof(ClientUpdateService)} called for {dto.ClientId}");
+            this.Logger.LogDebug($"{nameof(ClientUpdateService)} called for {dto.ClientId}");
 
             return this.Mapper.Map<ClientDTO>(
                 await this.ClientUpdateService.UpdateAsync(Mapper.Map<ClientUpdateModel>(dto)));
@@ -77,7 +77,7 @@ namespace WebApp.WebAPI.Controllers {
         [HttpDelete]
         [Route("{clientId}")]
         public async Task DeleteAsync(int clientId) {
-            this.Logger.LogTrace($"{nameof(ClientDeleteService)} called for {clientId}");
+            this.Logger.LogDebug($"{nameof(ClientDeleteService)} called for {clientId}");
             await ClientDeleteService.DeleteAsync(new ClientIdentityModel(clientId));
         }
     }

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Domain;
+using WebApp.DAL.Entities;
 using WebApp.Domain.Contracts;
 using WebApp.Domain.Models;
-using WebApp.DAL.Entities;
 using EntityBooking = WebApp.DAL.Entities.Booking;
 using DomainBooking = WebApp.Domain.Booking;
 using IBookingRep =
@@ -15,10 +14,10 @@ using IBookingRep =
 
 namespace WebApp.DAL {
     public class BookingRepository : IBookingRep {
-        private HotelDBContext Context { get; }
+        private HotelDbContext Context { get; }
         private IMapper Mapper { get; }
 
-        public BookingRepository(HotelDBContext context, IMapper mapper) {
+        public BookingRepository(HotelDbContext context, IMapper mapper) {
             Context = context;
             Mapper = mapper;
         }
@@ -30,13 +29,15 @@ namespace WebApp.DAL {
             }
 
             if (client.BookingId.HasValue)
-                return await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client).Include(booking => booking.Room).FirstOrDefaultAsync(x => x.Id == client.BookingId);
+                return await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client)
+                    .Include(booking => booking.Room).FirstOrDefaultAsync(x => x.Id == client.BookingId);
             return null;
         }
 
         public async Task<IEnumerable<DomainBooking>> GetByAsync() {
             return this.Mapper.Map<IEnumerable<DomainBooking>>(
-                await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client).Include(booking => booking.Room).ToListAsync());
+                await this.Context.Bookings.AsNoTracking().Include(booking => booking.Client)
+                    .Include(booking => booking.Room).ToListAsync());
         }
 
         public async Task<DomainBooking> GetByAsync(IBookingContainer model) {

@@ -32,15 +32,12 @@ namespace WebApp.BLL.Implementations {
 
     public class PaymentUpdateService : IUpdateService<PaymentUpdateModel, IPaymentContainer, DomainPayment> {
         private IPaymentRep _repository;
-        private IGetService<IClientContainer, Client> client_service;
         private IGetService<IBookingContainer, Booking> booking_service;
         private IGetService<IPaymentContainer, DomainPayment> payment_service;
 
-        public PaymentUpdateService(IPaymentRep repository, IGetService<IClientContainer, Client> clientService,
-            IGetService<IBookingContainer, Booking> bookingService,
+        public PaymentUpdateService(IPaymentRep repository, IGetService<IBookingContainer, Booking> bookingService,
             IGetService<IPaymentContainer, Payment> paymentService) {
             _repository = repository;
-            client_service = clientService;
             booking_service = bookingService;
             payment_service = paymentService;
         }
@@ -54,13 +51,10 @@ namespace WebApp.BLL.Implementations {
 
     public class PaymentCreateService : ICreateService<PaymentUpdateModel, IPaymentContainer, DomainPayment> {
         private IPaymentRep _repository;
-        private IGetService<IClientContainer, Client> client_service;
         private IGetService<IBookingContainer, Booking> booking_service;
 
-        public PaymentCreateService(IPaymentRep repository, IGetService<IClientContainer, Client> clientService,
-            IGetService<IBookingContainer, Booking> bookingService) {
+        public PaymentCreateService(IPaymentRep repository, IGetService<IBookingContainer, Booking> bookingService) {
             _repository = repository;
-            client_service = clientService;
             booking_service = bookingService;
         }
 

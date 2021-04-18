@@ -20,4 +20,9 @@ namespace WebApp.DTO.Request {
         [Required(ErrorMessage = "RoomId is required")]
         public int RoomId { get; set; }
     }
+
+    public class RoomTypeUpdateDTO : RoomTypeCreateDTO {
+        [Required(ErrorMessage = "RoomId is required")]
+        public int RoomId { get; set; }
+    }
 }

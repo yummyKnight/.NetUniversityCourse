@@ -3,18 +3,17 @@
 #nullable disable
 
 namespace WebApp.DAL.Entities {
-    public partial class HotelDBContext : DbContext {
-        public HotelDBContext() {
+    public partial class HotelDbContext : DbContext {
+        public HotelDbContext() {
         }
 
-        public HotelDBContext(DbContextOptions<HotelDBContext> options)
+        public HotelDbContext(DbContextOptions<HotelDbContext> options)
             : base(options) {
         }
 
         public virtual DbSet<Booking> Bookings { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<PaymentType> PaymentTypes { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<RoomType> RoomTypes { get; set; }
 
@@ -143,26 +142,6 @@ namespace WebApp.DAL.Entities {
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.BookingId)
                     .HasConstraintName("Payment_booking_id_fkey");
-
-                entity.HasOne(d => d.PaymentType)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.PaymentTypeId)
-                    .HasConstraintName("Payment_payment_type_id_fkey");
-            });
-
-            modelBuilder.Entity<PaymentType>(entity =>
-            {
-                entity.ToTable("PaymentType");
-
-                entity.HasIndex(e => e.Type, "PaymentType_type_key")
-                    .IsUnique();
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasColumnType("character varying")
-                    .HasColumnName("type");
             });
 
             modelBuilder.Entity<Room>(entity =>

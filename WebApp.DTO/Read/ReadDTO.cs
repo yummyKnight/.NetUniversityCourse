@@ -16,4 +16,7 @@ namespace WebApp.DTO.Read {
     public class RoomDTO : BaseRoom {
         public int Id { get; set; }
     }
+    public class RoomTypeDTO : BaseRoomType {
+        public int Id { get; set; }
+    }
 }

@@ -12,10 +12,10 @@ using PaymentDomain = WebApp.Domain.Payment;
 using IPaymentRep = WebApp.DAL.IRepository<WebApp.Domain.Payment, WebApp.Domain.Contracts.IPaymentContainer, WebApp.Domain.Models.PaymentUpdateModel>;
 namespace WebApp.DAL {
     public class PaymentRepository : IPaymentRep {
-        private HotelDBContext Context;
+        private HotelDbContext Context;
         private IMapper Mapper { get; }
 
-        public PaymentRepository(HotelDBContext context, IMapper mapper) {
+        public PaymentRepository(HotelDbContext context, IMapper mapper) {
             Context = context;
             Mapper = mapper;
         }
